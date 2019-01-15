@@ -10,10 +10,21 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "mocha --exit",
+    "test": "node server.js & mocha --exit",
     "start": "nodemon ."
   },
   "author": "",
   "license": "ISC",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhull1/tracker-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jhull1/tracker-app/issues"
+  },
+  "homepage": "https://github.com/jhull1/tracker-app#readme",
   "description": ""
 }
