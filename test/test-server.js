@@ -19,3 +19,27 @@ describe('Root', function() {
       });
   });
 });
+
+describe('user-stats', function() {
+
+  it('should show HTML for the user-stats page', function() {
+    return chai.request('http://localhost:8080/')
+      .get('/user-stats')
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res).to.be.html
+      });
+  });
+});
+
+describe('new-post', function() {
+
+  it('should show HTML for the new-post page', function() {
+    return chai.request('http://localhost:8080/')
+      .get('/new-post')
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res).to.be.html
+      });
+  });
+});
