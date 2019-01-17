@@ -2,12 +2,17 @@ const express = require('express');
 const app = express();
 app.use(express.static('public'));
 
+//app.get("/", (req, res) => res.sendFile(`${__dirname}/views/index.html` ));
+//app.get('/', (req, res) => {
+ // res.sendFile(__dirname + '/views/index.html');
+//});
+
 app.get('/user-stats', (req, res) => {
-  res.sendFile('user-stats.html');
+  res.sendFile(__dirname + '/user-stats.html');
 });
 
 app.get('/new-post', (req, res) => {
-  res.sendFile('new-post.html');
+  res.sendFile(`${__dirname}/new-post.html`);
 });
 
 app.listen(process.env.PORT || 8080);
