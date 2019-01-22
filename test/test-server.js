@@ -23,8 +23,8 @@ describe('Root', function() {
 describe('user-stats', function() {
 
   it('should show HTML for the user-stats page', function() {
-    return chai.request('http://localhost:8080/')
-      .get('/user-stats')
+    return chai.request('http://localhost:8080/user-stats')
+      .get('/')
       .then(function(res) {
         expect(res).to.have.status(200);
         expect(res).to.be.html
@@ -35,8 +35,8 @@ describe('user-stats', function() {
 describe('new-post', function() {
 
   it('should show HTML for the new-post page', function() {
-    return chai.request('http://localhost:8080/')
-      .get('/new-post')
+    return chai.request('http://localhost:8080/new-post')
+      .get('/')
       .then(function(res) {
         expect(res).to.have.status(200);
         expect(res).to.be.html

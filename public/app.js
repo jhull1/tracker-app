@@ -50,8 +50,9 @@ function getWorkoutPosts(callbackFn) {
 // to real API later
 function displayWorkoutPosts(data) {
     for (index in data.workoutPosts) {
+        console.log(index);
 	   $('body').append(
-        '<p>' + data.workoutPosts[index].text + '</p>');
+        '<p>' + data.workoutPosts[index].type + '</p>');
     }
 }
 

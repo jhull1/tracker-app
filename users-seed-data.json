@@ -1,0 +1,5 @@
+
+{"_id":{"$oid":"5af50c84c082f1e92f834209"},"firstName":"Frank","lastName":"Fitness","userName":"frank.fitness"}
+{"_id":{"$oid":"5af50c84c082f1e92f83420a"},"firstName":"Hannah","lastName":"Healthy","userName":"hannah.healthy"}
+{"_id":{"$oid":"5af50c84c082f1e92f83420b"},"firstName":"Sarah","lastName":"Shapely","userName":"sarah.shapely"}
+{"_id":{"$oid":"5af50c84c082f1e92f83420c"},"firstName":"Spencer","lastName":"Shredded","userName":"spencer.shredded"}
