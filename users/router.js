@@ -1,18 +1,54 @@
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
-
 const {User} = require('./models');
-
 const router = express.Router();
-
 const jsonParser = bodyParser.json();
 
+//new code section here. want to discuss if its ok to have this here or if i have to have it in auth router
+
+// Load User Model
+require('../models/User');
+const User = mongoose.model('users');
+
+// User Login Route
+router.get('/login', (req, res) => {
+  res.render('users/login'); //this would be a css file
+});
+
+// User Register Route
+router.get('/register', (req, res) => {
+  res.render('users/register');
+});
+
+// Login Form POST
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', {
+    successRedirect: '/sessions',
+    failureRedirect: '/users/login',
+    failureFlash: true //native way of showing error message, got this from passport documentation
+  })(req, res, next);
+});
+
+// Logout User
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.flash('success_msg', 'You are logged out.');
+  res.redirect('/users/login');
+});
+
+
+
+
+
+
 // Post to register a new user
-router.post('/', jsonParser, (req, res) => {
+router.post('/register', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
+
+//Check for missing username or password
   if (missingField) {
     return res.status(422).json({
       code: 422,
@@ -21,7 +57,7 @@ router.post('/', jsonParser, (req, res) => {
       location: missingField
     });
   }
-
+//Check if inputs are strings
   const stringFields = ['username', 'password', 'firstName', 'lastName'];
   const nonStringField = stringFields.find(
     field => field in req.body && typeof req.body[field] !== 'string'
@@ -124,6 +160,10 @@ router.post('/', jsonParser, (req, res) => {
     .then(user => {
       return res.status(201).json(user.serialize());
     })
+    .then(user => {
+                req.flash('success_msg', 'Success! Please login below.');//is this line ok? i wanted to add some feedback for user and redirect them 
+                res.redirect('/users/login');
+              })
     .catch(err => {
       // Forward validation errors on to the client, otherwise give a 500
       // error because something unexpected has happened
@@ -133,6 +173,8 @@ router.post('/', jsonParser, (req, res) => {
       res.status(500).json({code: 500, message: 'Internal server error'});
     });
 });
+
+//NEED HELP WITH THIS SECTION---WHAT ARE ALTERNATIVES
 
 // Never expose all your users like below in a prod application
 // we're just doing this so we have a quick way to see
