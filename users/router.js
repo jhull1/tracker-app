@@ -7,21 +7,21 @@ const jsonParser = bodyParser.json();
 
 //new code section here. want to discuss if its ok to have this here or if i have to have it in auth router
 
-// Load User Model
+// Load user model
 require('../models/User');
 const User = mongoose.model('users');
 
-// User Login Route
+// User login route
 router.get('/login', (req, res) => {
   res.render('users/login'); //this would be a css file
 });
 
-// User Register Route
+// User register route
 router.get('/register', (req, res) => {
   res.render('users/register');
 });
 
-// Login Form POST
+// Login form POST
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/sessions',
@@ -39,7 +39,7 @@ router.get('/logout', (req, res) => {
 
 
 
-
+//old code
 
 
 // Post to register a new user

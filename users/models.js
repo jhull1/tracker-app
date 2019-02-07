@@ -34,12 +34,12 @@ UserSchema.methods.serialize = function() {
  // };
 //};
 
-userSchema.pre('remove', function(next) { //how do i use a prehook like this if they are in separate files
-  workoutPost
-   .remove({user:this._id})
-   .exec()
-  next();
- });
+//userSchema.pre('remove', function(next) { //how do i use a prehook like this if they are in separate files
+  //workoutPost
+   //.remove({user:this._id})
+   //.exec()
+ // next();
+ //});
 
 userSchema.virtual('fullName').get(function() {
   return `${this.firstName} ${this.lastName}`.trim();
