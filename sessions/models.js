@@ -1,18 +1,10 @@
 const mongoose = require("mongoose");
+mongoose.Promise = global.Promise;
 
-// this is the schema to represent a post
 
-//const userSchema = mongoose.Schema({
-  //firstName: 'string',
-  //lastName: 'string',
-  //userName: {
-    //type: 'string',
-    //unique: true
- // }
-//});
-const commentSchema = mongoose.Schema({ content: 'string' });
+const commentSchema = mongoose.Schema({ content: 'string' }); //needs to be in own model now probably
 
-const workoutPostSchema = mongoose.Schema({
+const SessionSchema = mongoose.Schema({
   type: { type: String, required: true },
   calories: { type: Number, required: true },
   max-hr: { type: Number, required: true },
@@ -26,35 +18,23 @@ const workoutPostSchema = mongoose.Schema({
 });
 
 
-workoutPostSchema.pre('find', function(next) {
+SessionSchema.pre('find', function(next) {
   this.populate('user');
   next();
 });
 
- workoutPostSchema.pre('findById', function(next) {
+ SessionSchema.pre('findById', function(next) {
   this.populate('user');
   next();
 });
 
-//userSchema.pre('remove', function(next) {
-  //workoutPost
-   //.remove({user:this._id})
-   //.exec()
-  //next();
- //});
 
-
-
-workoutPostSchema.virtual('userFullName').get(function() {
+SessionSchema.virtual('userFullName').get(function() {
   return `${this.user.firstName} ${this.user.lastName}`.trim();
 });
 
 
-//userSchema.virtual('fullName').get(function() {
-  //return `${this.firstName} ${this.lastName}`.trim();
-//});
-
-workoutPostSchema.methods.serialize = function() {
+SessionSchema.methods.serialize = function() {
   return {
     id: this._id,
     type: this.type,
@@ -69,17 +49,8 @@ workoutPostSchema.methods.serialize = function() {
 };
 
 
-//userSchema.methods.serialize = function() { //can i use this like this or does it have to be called differently
- // return {
-  //  id: this._id,
-  //  name: this.fullName,
-  //  userName: this.userFullName
- // };
-//};
+const Session = mongoose.model("sessions", SessionSchema);
 
 
-const workoutPost = mongoose.model("workoutPost", workoutPostSchema);
-//const User = mongoose.model('User', userSchema);
 
-
-module.exports = { workoutPost, User };
+module.exports = { Session };
